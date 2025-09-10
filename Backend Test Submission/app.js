@@ -6,7 +6,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const requestIp = require("request-ip");
 
-const loggingMiddleware = require("./middlewares/loggingMiddleware");
+const loggingMiddleware = require("./middleware/logging");
 const routes = require("./routes");
 
 const app = express();

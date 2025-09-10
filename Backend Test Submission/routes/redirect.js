@@ -1,5 +1,5 @@
 const express = require("express");
-const ShortUrl = require("../models/ShortUrl");
+const ShortUrl = require("../models/Url");
 const geoip = require("geoip-lite");
 
 const router = express.Router();

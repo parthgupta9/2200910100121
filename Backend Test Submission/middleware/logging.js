@@ -1,4 +1,4 @@
-const { Log } = require("../../logging/Log");
+const { Log } = require("../../Logging Middleware/Log");
 
 function loggingMiddleware(req, res, next) {
   req.log = (level, pkg, msg) => {

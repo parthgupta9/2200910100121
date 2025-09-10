@@ -1,4 +1,5 @@
-const fetch = require("node-fetch");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
 
 const LOG_API_URL = process.env.LOG_API_URL;
 const accessToken = process.env.LOG_API_TOKEN;
