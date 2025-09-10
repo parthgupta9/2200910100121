@@ -11,7 +11,6 @@ const routes = require("./routes");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const MONGO = process.env.MONGODB_URI;
 
 app.use(helmet());
 app.use(cors());
@@ -23,7 +22,7 @@ app.use("/", routes);
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
-mongoose.connect(MONGO)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB error:", err));
 

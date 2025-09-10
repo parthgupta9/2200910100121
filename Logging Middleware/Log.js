@@ -1,16 +1,9 @@
-// logging/Log.js
 const fetch = require("node-fetch");
 
-const LOG_API_URL = process.env.LOG_API_URL;  // set in .env
-let accessToken = ""; // will be injected after /auth
-
+const LOG_API_URL = process.env.LOG_API_URL;
+const accessToken = process.env.LOG_API_TOKEN;
 
 async function Log(stack, level, packageName, message) {
-  if (!accessToken) {
-    console.error("⚠️ No access token available for logging");
-    return;
-  }
-
   try {
     const body = { stack, level, package: packageName, message };
 
@@ -24,18 +17,11 @@ async function Log(stack, level, packageName, message) {
     });
 
     if (!res.ok) {
-      console.error("❌ Failed to log:", res.status, await res.text());
+      console.error("Failed to log:", res.status, await res.text());
     }
   } catch (err) {
     console.error("Log() error:", err.message);
   }
 }
 
-/**
- * Update the bearer token after /auth
- */
-function setAccessToken(token) {
-  accessToken = token;
-}
-
-module.exports = { Log, setAccessToken };
+module.exports = { Log };

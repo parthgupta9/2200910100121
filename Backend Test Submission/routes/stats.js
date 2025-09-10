@@ -6,12 +6,9 @@ const router = express.Router();
 router.get("/:code", async (req, res) => {
   try {
     const doc = await ShortUrl.findOne({ shortcode: req.params.code });
-    if (!doc) {
-      req.log("warn", "route", "Stats requested for missing shortcode");
-      return res.status(404).json({ error: "Not found" });
-    }
+    if (!doc) return res.status(404).json({ error: "Not found" });
 
-    const data = {
+    res.json({
       shortcode: doc.shortcode,
       originalUrl: doc.originalUrl,
       createdAt: doc.createdAt,
@@ -22,10 +19,7 @@ router.get("/:code", async (req, res) => {
         referrer: c.referrer,
         country: c.country,
       })),
-    };
-
-    req.log("info", "route", `Stats returned for ${doc.shortcode}`);
-    res.json(data);
+    });
   } catch (err) {
     req.log("fatal", "route", `Stats error: ${err.message}`);
     res.status(500).json({ error: "Server error" });
